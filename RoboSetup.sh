@@ -51,7 +51,7 @@ ssh-keygen -t rsa -C $MY_COMPUTER_NAME
 xclip -sel clip < ~/.ssh/id_rsa.pub
 
 echo "A new SSH key has been created and copied to the clipboard..."
-echo "Please go to [GitHub > Settings > SSH Keys > Add SSH Key], give the key a title, click in the [Key] field, and press Ctrl-V."
+echo "Please go to [GitHub > Settings > SSH Keys > Add SSH Key], give the key a title, click in the [Key] field, press Ctrl-V, and save the key."
 
 while true; do
     read -p "Is this complete (y or n)?" yn
