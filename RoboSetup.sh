@@ -7,6 +7,13 @@
 clear
 echo "RoboSetup Script v0.1 - 9/26/2014"
 
+# Create a function for re-sourcing the .bashrc without creating a new 
+# terminal instance. We will use this later...
+function re_source {
+    xdotool type 'source ~/.bashrc'
+    xdotool key Return
+}
+
 # Ensure the user has run this script under sudo
 if [ "$(whoami)" != "root" ]; then
     echo "Error: This script must be run as root!"
@@ -18,10 +25,14 @@ fi
 sh -c 'echo "deb http://packages.ros.org/ros/ubuntu precise main" > /etc/apt/sources.list.d/ros-latest.list'
 wget http://packages.ros.org/ros.key -O - | apt-key add -
 
+# Workaround for the Unity bug for Ubuntu 12.04 running xserver-xorg-lts-trusty
+apt-get install -y xserver-xorg-lts-saucy
+apt-mark hold xserver-xorg-lts-saucy
+
 # Update apt and install ROS Groovy, PR2 packages, and Python packages
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
-apt-get upgrade -y
+#apt-get upgrade -y
 apt-get install -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" ros-groovy-desktop-full python2.7 python-pip python-rosinstall ros-groovy-pr2-desktop ros-groovy-pr2-interactive-manipulation ros-groovy-simulator-gazebo ros-groovy-pr2-simulator ros-groovy-openni-launch git xclip ros-groovy-pocketsphinx
 
 # Initialize rosdep
@@ -30,7 +41,7 @@ rosdep update
 
 # Environment setup
 echo "source /opt/ros/groovy/setup.bash" >> ~/.bashrc
-source ~/.bashrc
+re_source
 
 # Create Workspaces
 mkdir ~/rosbuild_ws
