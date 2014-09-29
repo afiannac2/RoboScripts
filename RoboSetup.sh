@@ -10,6 +10,7 @@ echo "RoboSetup Script v0.1 - 9/26/2014"
 # Create a function for re-sourcing the .bashrc without creating a new 
 # terminal instance. We will use this later...
 function re_source {
+    source ~/.bashrc
     xdotool type 'source ~/.bashrc'
     xdotool key Return
 }
@@ -37,9 +38,12 @@ sudo apt-get install -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::=
 
 # Initialize rosdep
 sudo rosdep init
+echo "Running rosdep update..."
 rosdep update
 
 # Environment setup
+echo "" >> ~/.bashrc
+echo "# ROS Setup Info" >> ~/.bashrc
 echo "source /opt/ros/groovy/setup.bash" >> ~/.bashrc
 re_source
 
