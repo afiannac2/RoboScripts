@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Even though there is a hashbang declaration above, this file should
+# not be executed as a script. It should be sourced instead!
+
 # This setup script will install all required packages and setup all
 # system and environment variables required to run ROS and the PR2
 # and PbD systems.
