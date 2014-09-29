@@ -1,4 +1,4 @@
-#!/bin/bash -i
+#!/bin/bash
 
 # This setup script will install all required packages and setup all
 # system and environment variables required to run ROS and the PR2
@@ -11,8 +11,6 @@ echo "RoboSetup Script v0.1 - 9/26/2014"
 # terminal instance. We will use this later...
 function re_source {
     source ~/.bashrc
-    xdotool type 'source ~/.bashrc'
-    xdotool key Return
 }
 
 # Ensure the user has run this script under sudo
