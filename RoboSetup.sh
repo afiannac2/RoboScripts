@@ -36,7 +36,7 @@ sudo apt-get upgrade -y
 sudo apt-get install -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" ros-groovy-desktop-full python2.7 python-pip python-rosinstall ros-groovy-pr2-desktop ros-groovy-pr2-interactive-manipulation ros-groovy-simulator-gazebo ros-groovy-pr2-simulator ros-groovy-openni-launch git xclip ros-groovy-pocketsphinx xdotool
 
 # Initialize rosdep
-rosdep init
+sudo rosdep init
 rosdep update
 
 # Environment setup
@@ -54,14 +54,18 @@ catkin_init_workspace
 cd ~/catkin_ws
 catkin_make
 
-cat setup.bash >> ~/.bashrc
+cat ~/RoboScripts-master/setup.bash >> ~/.bashrc
+re_source
 
 # Setup git and clone the PbD repo
+clear
 read -p "What is the name of your computer (ex. 410-daisies)?" MY_COMPUTER_NAME
 ssh-keygen -t rsa -C $MY_COMPUTER_NAME
 xclip -sel clip < ~/.ssh/id_rsa.pub
 
+clear
 echo "A new SSH key has been created and copied to the clipboard..."
+echo ""
 echo "Please go to [GitHub > Settings > SSH Keys > Add SSH Key], give the key a title, click in the [Key] field, press Ctrl-V, and save the key."
 
 while true; do
@@ -78,6 +82,7 @@ yes | sudo apt-get -y install $(< packages.txt)
 sudo pip install -r requirements.txt
 
 # Indicate success!
+clear
 echo ""
 echo "Phew... We made it... And successfully at that!"
 echo ""
