@@ -15,25 +15,25 @@ function re_source {
 }
 
 # Ensure the user has run this script under sudo
-if [ "$(whoami)" != "root" ]; then
-    echo "Error: This script must be run as root!"
-    echo "usage: sudo ./RoboSetup.sh"
+if [ "$(whoami)" == "root" ]; then
+    echo "Error: This script must not be run as root! You will be prompted for your password when necessary"
+    echo "usage: ./RoboSetup.sh"
     exit 1
 fi
 
 # Setup the sources.list and the keys
-sh -c 'echo "deb http://packages.ros.org/ros/ubuntu precise main" > /etc/apt/sources.list.d/ros-latest.list'
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu precise main" > /etc/apt/sources.list.d/ros-latest.list'
 wget http://packages.ros.org/ros.key -O - | apt-key add -
 
 # Workaround for the Unity bug for Ubuntu 12.04 running xserver-xorg-lts-trusty
-apt-get install -y xserver-xorg-lts-saucy
-apt-mark hold xserver-xorg-lts-saucy
+sudo apt-get install -y xserver-xorg-lts-saucy
+sudo apt-mark hold xserver-xorg-lts-saucy
 
 # Update apt and install ROS Groovy, PR2 packages, and Python packages
 export DEBIAN_FRONTEND=noninteractive
-apt-get update
-#apt-get upgrade -y
-apt-get install -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" ros-groovy-desktop-full python2.7 python-pip python-rosinstall ros-groovy-pr2-desktop ros-groovy-pr2-interactive-manipulation ros-groovy-simulator-gazebo ros-groovy-pr2-simulator ros-groovy-openni-launch git xclip ros-groovy-pocketsphinx
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get install -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" ros-groovy-desktop-full python2.7 python-pip python-rosinstall ros-groovy-pr2-desktop ros-groovy-pr2-interactive-manipulation ros-groovy-simulator-gazebo ros-groovy-pr2-simulator ros-groovy-openni-launch git xclip ros-groovy-pocketsphinx xdotool
 
 # Initialize rosdep
 rosdep init
@@ -74,8 +74,8 @@ done
 
 read -p "What is your GitHub username?" GH_USER
 cd ~/rosbuild_ws; git clone git@github.com:$GH_USER/pr2_pbd.git
-yes | apt-get -y install $(< packages.txt)
-pip install -r requirments.txt
+yes | sudo apt-get -y install $(< packages.txt)
+sudo pip install -r requirements.txt
 
 # Indicate success!
 echo ""
@@ -87,7 +87,7 @@ while true; do
     read -p "Would you like to start up the PR2 PbD Simulator as a test (y or n)?" yn
     case $yn in
 	[Yy]* ) break;;
-	[Nn]* ) return;;
+	[Nn]* ) exit 0;;
     esac
 done
 
