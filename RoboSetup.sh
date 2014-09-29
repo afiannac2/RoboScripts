@@ -77,7 +77,9 @@ while true; do
 done
 
 read -p "What is your GitHub username?" GH_USER
-cd ~/rosbuild_ws; git clone git@github.com:$GH_USER/pr2_pbd.git
+cd ~/rosbuild_ws
+git clone git@github.com:$GH_USER/pr2_pbd.git
+cd pr2_pbd/
 yes | sudo apt-get -y install $(< packages.txt)
 sudo pip install -r requirements.txt
 
