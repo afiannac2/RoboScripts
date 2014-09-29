@@ -1,4 +1,3 @@
-source /opt/ros/groovy/setup.bash
 source ~/catkin_ws/devel/setup.bash
 
 # Grabbing IP for ROS_IP
