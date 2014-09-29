@@ -10,3 +10,4 @@ Notes:
 
 - **DON'T TYPE OUT THE COMMAND ABOVE**: *Copy/Paste* to save time and prevent errors!
 - You may receive a prompt asking you if `hddtemp` should be started at runtime. If you are installing this on a VM, select No.
+- You will probably be prompted by the OS to update to Ubuntu 14.xx at some point. Just say no...

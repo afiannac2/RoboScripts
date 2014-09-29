@@ -10,19 +10,6 @@
 clear
 echo "RoboSetup Script v0.1 - 9/26/2014"
 
-# Create a function for re-sourcing the .bashrc without creating a new 
-# terminal instance. We will use this later...
-function re_source {
-    source ~/.bashrc
-}
-
-# Ensure the user has run this script under sudo
-if [ "$(whoami)" == "root" ]; then
-    echo "Error: This script must not be run as root! You will be prompted for your password when necessary"
-    echo "usage: ./RoboSetup.sh"
-    exit 1
-fi
-
 # Setup the sources.list and the keys
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu precise main" > /etc/apt/sources.list.d/ros-latest.list'
 wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
@@ -34,7 +21,7 @@ sudo apt-mark hold xserver-xorg-lts-saucy
 # Update apt and install ROS Groovy, PR2 packages, and Python packages
 sudo apt-get update
 sudo apt-get upgrade -y
-sudo apt-get install -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" ros-groovy-desktop-full python2.7 python-pip python-rosinstall ros-groovy-pr2-desktop ros-groovy-pr2-interactive-manipulation ros-groovy-simulator-gazebo ros-groovy-pr2-simulator ros-groovy-openni-launch git xclip ros-groovy-pocketsphinx xdotool
+sudo apt-get install -y ros-groovy-desktop-full python2.7 python-pip python-rosinstall ros-groovy-pr2-desktop ros-groovy-pr2-interactive-manipulation ros-groovy-simulator-gazebo ros-groovy-pr2-simulator ros-groovy-openni-launch git xclip ros-groovy-pocketsphinx xdotool
 
 # Initialize rosdep
 sudo rosdep init
@@ -45,7 +32,7 @@ rosdep update
 echo "" >> ~/.bashrc
 echo "# ROS Setup Info" >> ~/.bashrc
 echo "source /opt/ros/groovy/setup.bash" >> ~/.bashrc
-re_source
+source ~/.bashrc
 
 # Create Workspaces
 mkdir ~/rosbuild_ws
@@ -59,7 +46,7 @@ cd ~/catkin_ws
 catkin_make
 
 cat ~/RoboScripts-master/setup.bash >> ~/.bashrc
-re_source
+source ~/.bashrc
 
 # Setup git and clone the PbD repo
 clear
