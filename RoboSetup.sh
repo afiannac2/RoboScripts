@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -i
 
 # This setup script will install all required packages and setup all
 # system and environment variables required to run ROS and the PR2
@@ -31,7 +31,6 @@ sudo apt-get install -y xserver-xorg-lts-saucy
 sudo apt-mark hold xserver-xorg-lts-saucy
 
 # Update apt and install ROS Groovy, PR2 packages, and Python packages
-export DEBIAN_FRONTEND=noninteractive
 sudo apt-get update
 sudo apt-get upgrade -y
 sudo apt-get install -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" ros-groovy-desktop-full python2.7 python-pip python-rosinstall ros-groovy-pr2-desktop ros-groovy-pr2-interactive-manipulation ros-groovy-simulator-gazebo ros-groovy-pr2-simulator ros-groovy-openni-launch git xclip ros-groovy-pocketsphinx xdotool
