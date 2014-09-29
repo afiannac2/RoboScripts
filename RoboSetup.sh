@@ -23,7 +23,7 @@ fi
 
 # Setup the sources.list and the keys
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu precise main" > /etc/apt/sources.list.d/ros-latest.list'
-wget http://packages.ros.org/ros.key -O - | apt-key add -
+wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
 
 # Workaround for the Unity bug for Ubuntu 12.04 running xserver-xorg-lts-trusty
 sudo apt-get install -y xserver-xorg-lts-saucy
